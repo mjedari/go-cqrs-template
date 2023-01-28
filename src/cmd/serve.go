@@ -1,8 +1,11 @@
 package cmd
 
 import (
-	"github.com/mjedari/go-cqrs-template/src/api/config"
-	"github.com/mjedari/go-cqrs-template/src/api/route"
+	"github.com/mjedari/go-cqrs-template/infra/providers/storage"
+	"github.com/mjedari/go-cqrs-template/web/config"
+	"github.com/mjedari/go-cqrs-template/web/route"
+	"github.com/mjedari/go-cqrs-template/web/wiring"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"net/http"
@@ -22,7 +25,16 @@ func init() {
 }
 
 func serve() {
+	initWiring()
 	go runHttpServer()
+}
+
+func initWiring() {
+	redisProvider, err := storage.NewRedis(config.Config.Redis)
+	if err != nil {
+		log.Fatalf("Fatal error on create redis connection: %s \n", err)
+	}
+	wiring.Wiring = wiring.NewWire(redisProvider)
 }
 
 func runHttpServer() {

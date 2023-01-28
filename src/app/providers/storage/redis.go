@@ -1,7 +1,15 @@
 package storage
 
-import "context"
+import (
+	"context"
+	"github.com/mjedari/go-cqrs-template/domain/contract"
+)
 
-type IRedisStorage interface {
-	Insert(ctx context.Context, key, value string) error
+type IStorage interface {
+	Insert(ctx context.Context, key string, value []byte) error
+	Select(ctx context.Context, key string) ([]byte, error)
+	Update(ctx context.Context, key string, value []byte) error
+	Delete(ctx context.Context, key string) error
+
+	GetNextId(ctx context.Context, entity contract.IEntity) (int64, error)
 }

@@ -1,6 +1,6 @@
 package order
 
-import "github.com/mjedari/go-cqrs-template/src/domain/coin"
+import "github.com/mjedari/go-cqrs-template/domain/coin"
 
 type IOrderEvent interface {
 	GetName() string

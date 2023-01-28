@@ -2,8 +2,8 @@ package wiring
 
 import (
 	"context"
-	"github.com/mjedari/go-cqrs-template/src/domain/order"
-	"github.com/mjedari/go-cqrs-template/src/infra/providers/messaging"
+	"github.com/mjedari/go-cqrs-template/domain/order"
+	"github.com/mjedari/go-cqrs-template/infra/providers/messaging"
 	"github.com/redis/go-redis/v9"
 	"github.com/sirupsen/logrus"
 	"os"

@@ -3,8 +3,8 @@ package order
 import (
 	"context"
 	"fmt"
-	"github.com/mjedari/go-cqrs-template/src/domain/order"
-	"github.com/mjedari/go-cqrs-template/src/infra/providers/messaging"
+	"github.com/mjedari/go-cqrs-template/domain/order"
+	"github.com/mjedari/go-cqrs-template/infra/providers/messaging"
 )
 
 type OrderEventHandler struct {

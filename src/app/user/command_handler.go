@@ -1,17 +1,25 @@
 package user
 
-import "context"
+import (
+	"context"
+	userDomain "github.com/mjedari/go-cqrs-template/domain/user"
+)
 
 type UserCommandHandler struct {
-	repository IRepository
+	repository *UserRepository
 }
 
-func NewUserCommandHandler() *UserCommandHandler {
-	//return &UserCommandHandler{repository: repository}
-	return &UserCommandHandler{}
+func NewUserCommandHandler(repository *UserRepository) *UserCommandHandler {
+	return &UserCommandHandler{repository: repository}
 }
 
 func (u UserCommandHandler) CreateUser(ctx context.Context, command CreateUserCommand) error {
+
+	user := userDomain.NewUser(command.Name)
+
+	if err := u.repository.InsertUser(ctx, user); err != nil {
+		return err
+	}
 
 	return nil
 }

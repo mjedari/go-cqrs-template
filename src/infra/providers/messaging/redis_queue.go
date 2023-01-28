@@ -3,9 +3,8 @@ package messaging
 import (
 	"context"
 	"errors"
-	"fmt"
-	"github.com/mjedari/go-cqrs-template/src/app/providers/messaging"
-	"github.com/mjedari/go-cqrs-template/src/common"
+	"github.com/mjedari/go-cqrs-template/app/providers/messaging"
+	"github.com/mjedari/go-cqrs-template/common"
 	"github.com/redis/go-redis/v9"
 	"sync"
 	"time"
@@ -87,8 +86,8 @@ func NewRedisQueueSender(redis redis.Cmdable) *RedisQueueSender {
 }
 
 func (r *RedisQueueSender) Send(ctx context.Context, messages []common.EventMessage) error {
-	fmt.Println("Send called: ", string(messages[0].Payload))
-	// todo: How to publish payload into redis
+	//fmt.Println("Send called: ", messages[0].GetPayload)
+	// todo: How to publish Payload into redis
 
 	members := make(map[string][]redis.Z)
 	for _, message := range messages {

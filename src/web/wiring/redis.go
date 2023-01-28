@@ -1,7 +1,7 @@
 package wiring
 
 import (
-	"github.com/mjedari/go-cqrs-template/src/infra/providers/storage"
+	"github.com/mjedari/go-cqrs-template/infra/providers/storage"
 	"github.com/redis/go-redis/v9"
 )
 

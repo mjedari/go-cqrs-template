@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/mjedari/go-cqrs-template/src/app/providers/messaging"
-	"github.com/mjedari/go-cqrs-template/src/common"
+	"github.com/mjedari/go-cqrs-template/app/providers/messaging"
+	"github.com/mjedari/go-cqrs-template/common"
 	"github.com/redis/go-redis/v9"
 	"reflect"
 )
@@ -159,11 +159,6 @@ func (e *JsonEventPublisher) Publish(ctx context.Context, events []interface{}) 
 
 	return e.messageSender.Send(ctx, messages)
 }
-
-//type Message struct {
-//	Payload []byte
-//	Topic   string
-//}
 
 type EventRegistry struct {
 	typesByName map[string]reflect.Type

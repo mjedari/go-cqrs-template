@@ -1,7 +1,7 @@
 package wiring
 
 import (
-	"github.com/mjedari/go-cqrs-template/src/infra/providers/messaging"
+	"github.com/mjedari/go-cqrs-template/infra/providers/messaging"
 )
 
 func (w *Wire) GetEventBus() *messaging.EventBus {

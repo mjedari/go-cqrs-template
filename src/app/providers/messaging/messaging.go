@@ -2,7 +2,7 @@ package messaging
 
 import (
 	"context"
-	"github.com/mjedari/go-cqrs-template/src/common"
+	"github.com/mjedari/go-cqrs-template/common"
 )
 
 type IMessageReceiver interface {
@@ -24,3 +24,8 @@ type IWorker interface {
 }
 
 type ISubscribable = func(ctx context.Context, events []interface{}) error
+
+type IEventMessage interface {
+	GetPayload() []byte
+	GetTopic() string
+}

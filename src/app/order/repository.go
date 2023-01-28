@@ -3,8 +3,8 @@ package order
 import (
 	"context"
 	"fmt"
-	"github.com/mjedari/go-cqrs-template/src/app/providers/storage"
-	"github.com/mjedari/go-cqrs-template/src/domain/order"
+	"github.com/mjedari/go-cqrs-template/app/providers/storage"
+	"github.com/mjedari/go-cqrs-template/domain/order"
 )
 
 type IRepository interface {
@@ -14,10 +14,10 @@ type IRepository interface {
 type OrderRepository struct {
 	// pointer to gorm
 	// pointer to redis
-	redisStorage storage.IRedisStorage
+	redisStorage storage.IStorage
 }
 
-func NewOrderRepository(storage storage.IRedisStorage) *OrderRepository {
+func NewOrderRepository(storage storage.IStorage) *OrderRepository {
 	return &OrderRepository{storage}
 }
 
@@ -26,7 +26,7 @@ func (o OrderRepository) CreateOrder(ctx context.Context, order *order.Order) er
 
 	// insertDB
 	fmt.Println("Order stored in redis", order)
-	if err := o.redisStorage.Insert(context.Background(), "my-key", "my-value"); err != nil {
+	if err := o.redisStorage.Insert(context.Background(), "my-key", []byte("my-value")); err != nil {
 		return err
 	}
 	return nil

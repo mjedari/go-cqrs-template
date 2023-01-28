@@ -2,10 +2,13 @@ package storage
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"github.com/mjedari/go-cqrs-template/src/api/config"
+	"github.com/mjedari/go-cqrs-template/domain/contract"
+	"github.com/mjedari/go-cqrs-template/web/config"
 	"github.com/redis/go-redis/v9"
-	"time"
+	"reflect"
+	"strings"
 )
 
 type RedisStorage struct {
@@ -30,10 +33,50 @@ func NewRedisStorage(client *redis.Client) *RedisStorage {
 	return &RedisStorage{Client: client}
 }
 
-func (r RedisStorage) Insert(ctx context.Context, key, value string) error {
-	if err := r.Set(context.Background(), key, value, time.Minute).Err(); err != nil {
+func (r RedisStorage) GetNextId(ctx context.Context, entity contract.IEntity) (int64, error) {
+	entityType := reflect.TypeOf(entity)
+	name := entityType.Elem().Name()
+
+	key := fmt.Sprintf("next_%v_id", strings.ToLower(name))
+	nextID, err := r.Incr(ctx, key).Result()
+	if err != nil {
+		return 0, err
+	}
+	return nextID, nil
+}
+
+func (r RedisStorage) Insert(ctx context.Context, key string, value []byte) error {
+	if err := r.Set(ctx, key, value, 0).Err(); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (r RedisStorage) Select(ctx context.Context, key string) ([]byte, error) {
+	fetched, err := r.Get(ctx, key).Bytes()
+	if err == redis.Nil {
+		return nil, errors.New("resource not found")
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return fetched, nil
+}
+
+func (r RedisStorage) Update(ctx context.Context, key string, value []byte) error {
+	if err := r.Delete(ctx, key); err != nil {
+		return err
+	}
+
+	if err := r.Insert(ctx, key, value); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r RedisStorage) Delete(ctx context.Context, key string) error {
+	return r.Del(ctx, key).Err()
 }
