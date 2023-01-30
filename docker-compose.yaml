@@ -1,0 +1,22 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    command: --port 6399
+    ports:
+      - "6399:6399"
+    expose:
+      - "6399"
+    networks:
+      - my-backend
+  my-project:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_ADDR=127.0.0.1:6399
+    networks:
+      - my-backend
+networks:
+  my-backend:
+    driver: bridge

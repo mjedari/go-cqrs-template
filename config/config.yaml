@@ -1,5 +1,5 @@
 SERVER:
-  HOST: localhost
+  HOST: 0.0.0.0
   PORT: 8000
 
 DATABASE:
@@ -12,6 +12,6 @@ HTTP_CLIENT:
   TIMEOUT: 30
 
 REDIS:
-  HOST: localhost
-  PORT: 6379
+  HOST: redis
+  PORT: 6399
   PASS:
