@@ -39,7 +39,7 @@ http://localhost:8080/user/create
 ### get user(s) (get method)
 
 ```
-http://localhost:8080/user/1
+http://localhost:8080/user/{user_id}
 http://localhost:8080/user/all
 ```
 
@@ -60,7 +60,7 @@ http://localhost:8080/coin/create
 ### get coin(s) (get method)
 
 ```
-http://localhost:8080/coin/1
+http://localhost:8080/coin/{coin_id}
 http://localhost:8080/coin/all
 ```
 
@@ -81,8 +81,8 @@ http://localhost:8080/order/create
 ### get order(s) (get method)
 
 ```
-http://localhost:8080/order/1
-http://localhost:8080/orders/all
+http://localhost:8080/order/{order_id}
+http://localhost:8080/order/all
 ```
 
 
