@@ -15,10 +15,9 @@ there are many situations in code that can be revised but for the sake of time l
 
 ## Usage
 
-You can run the application by make file in `src` directory but before make sure that your `redis-server` is running
-and you have installed `go` on your machine:
+you can run by docker compose:
 ```
-make start
+docker compose up
 ```
 
 ## Api Guide
