@@ -12,7 +12,7 @@ services:
   my-project:
     build: .
     ports:
-      - "8000:8000"
+      - "8080:8080"
     environment:
       - REDIS_ADDR=127.0.0.1:6399
     networks:
