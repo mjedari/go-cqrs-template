@@ -66,6 +66,35 @@ func (r RedisStorage) Select(ctx context.Context, key string) ([]byte, error) {
 	return fetched, nil
 }
 
+func (r RedisStorage) SelectAll(ctx context.Context, match string) ([][]byte, error) {
+
+	var values [][]byte
+	var keys []string
+	var cursor uint64
+
+	for {
+		var err error
+		keys, cursor, err = r.Scan(ctx, cursor, match, 100).Result()
+		if err != nil {
+			return nil, err
+		}
+
+		for _, key := range keys {
+			val, err := r.Get(ctx, key).Bytes()
+			if err != nil {
+				return nil, err
+			}
+			// process val
+			values = append(values, val)
+		}
+
+		if cursor == 0 {
+			break
+		}
+	}
+	return values, nil
+}
+
 func (r RedisStorage) Update(ctx context.Context, key string, value []byte) error {
 	if err := r.Delete(ctx, key); err != nil {
 		return err

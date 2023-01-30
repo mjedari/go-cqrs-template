@@ -1,53 +1,88 @@
-# go-cqrs-template
+# go-cqrs-project
+
+## Description
+
+the whole structure is based on clean architecture. packaging is by tech. Although you preferable one is packaging by
+feature.
+the reason for choosing the packaging is its is more understandable for none-golang community which I guess you prefer.
+I do not use any web framework but rather used some libraries to be more comfortable. I implement event-bus and used it
+with
+combination of queue which is implemented by redis. However, to be more convenient I just chose redis as a key value
+database.
+But maybe it is not perfect choice in this context. As a matter of Clean Code & Architecture, OOP, SOLID principles
+there are many situations in code that can be revised but for the sake of time limitation deferred to the future.
+
+
+## Usage
+
+You can run the application by make file in `src` directory but before make sure that your `redis-server` is running
+and you have installed `go` on your machine:
 ```
-- my-project
-    - config
-        - confog.yaml
-        
-    - src
-        - api
-            - cmd
-                root.go
-                serve.go
-            config
-                config.go
-            - controller
-            - middleware
-            - route
-            - wiring
-        - app
-            - coin
-            - order
-                command.go
-                command_handler.go
-                event_handler.go
-                ports.go
-                repository.go
-            - providers
-                - messaging
-                    messaging_inferface.go
-                - storage
-                    redis_interface.go
-            - user
-        - domain
-            - coin
-                entity.go
-            - order
-                entity.go
-                event.go
-            - user
-                entity.go
-        - infra
-            - providers
-                - messaging
-                    event_bus.go
-                    rabbit_queue.go
-                    redis_queue.go
-                - storage
-                    redis.go
-    
-        
-    
-        
-    main.go
+make start
 ```
+
+## Api Guide
+
+### create user (post method)
+
+```
+http://localhost:8080/user/create
+```
+
+```json
+{
+  "name": "Hadi",
+  "balance": 1000
+}
+```
+
+### get user(s) (get method)
+
+```
+http://localhost:8080/user/1
+http://localhost:8080/user/all
+```
+
+### create coin (post method)
+
+```
+http://localhost:8080/coin/create
+```
+
+```json
+{
+  "name": "ABAN",
+  "price": 3,
+  "min": 10
+}
+```
+
+### get coin(s) (get method)
+
+```
+http://localhost:8080/coin/1
+http://localhost:8080/coin/all
+```
+
+### create user (post method)
+
+```
+http://localhost:8080/order/create
+```
+
+```json
+{
+  "user_id": 1,
+  "coin_id": 1,
+  "quantity": 2
+}
+```
+
+### get order(s) (get method)
+
+```
+http://localhost:8080/order/1
+http://localhost:8080/orders/all
+```
+
+

@@ -3,7 +3,7 @@ package wiring
 import "github.com/mjedari/go-cqrs-template/app/order"
 
 func (w *Wire) GetOrderCommandHandler() *order.OrderCommandHandler {
-	return order.NewOrderCommandHandler(w.GetOrderRepository(), w.GetCoinRepository(), w.GetEventBus())
+	return order.NewOrderCommandHandler(w.GetOrderRepository(), w.GetCoinRepository(), w.GetUserRepository(), w.GetEventBus())
 }
 
 func (w *Wire) GetOrderQueryHandler() *order.OrderQueryHandler {
@@ -15,5 +15,5 @@ func (w *Wire) GetOrderRepository() *order.OrderRepository {
 }
 
 func (w *Wire) GetOrderEventHandler() *order.OrderEventHandler {
-	return order.NewOrderEventHandler(w.GetEventBus())
+	return order.NewOrderEventHandler(w.GetOrderRepository(), w.GetCoinRepository(), w.GetEventBus())
 }

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/mjedari/go-cqrs-template/infra/providers/storage"
 	"github.com/mjedari/go-cqrs-template/web/config"
 	"github.com/mjedari/go-cqrs-template/web/route"
@@ -38,12 +39,13 @@ func initWiring() {
 }
 
 func runHttpServer() {
-	log.WithField("HTTP_Port", ":"+config.Config.Server.Port).
+	log.WithField("HTTP_Port", config.Config.Server.Host+":"+config.Config.Server.Port).
 		Info("starting HTTP/REST http...")
 
 	router := route.NewRouter()
 
-	if err := http.ListenAndServe(":"+config.Config.Server.Port, router); err != nil {
+	address := fmt.Sprintf("%s:%v", config.Config.Server.Host, config.Config.Server.Port)
+	if err := http.ListenAndServe(address, router); err != nil {
 		log.Fatal(err)
 	}
 }

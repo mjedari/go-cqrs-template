@@ -35,6 +35,8 @@ func (w *Wire) initEventBus() {
 	w.eventBus = w.GetEventBus()
 	w.eventBus.RegisterEvent(order.TestEvent{})
 	w.eventBus.RegisterEvent(order.OrderEvent{})
+	w.eventBus.RegisterEvent(order.InstantOrderEvent{})
+	w.eventBus.RegisterEvent(order.FailTransactionEvent{})
 
 	w.eventBus.RegisterListener("order-event", func(ctx context.Context, events []interface{}) error {
 		if err := w.GetOrderEventHandler().HandleEvents(ctx, events); err != nil {

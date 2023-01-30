@@ -22,3 +22,13 @@ func (h CoinQueryHandler) GetCoin(ctx context.Context, query GetCoinQuery) (*coi
 	}
 	return &coin, nil
 }
+
+func (h CoinQueryHandler) GetCoins(ctx context.Context, query GetAllCoinsQuery) ([]coin.Coin, error) {
+
+	coins, err := h.repository.GetAllCoins(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return coins, nil
+}

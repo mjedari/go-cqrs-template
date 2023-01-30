@@ -1,5 +1,6 @@
 package user
 
 type CreateUserCommand struct {
-	Name string
+	Name    string
+	Balance float64
 }

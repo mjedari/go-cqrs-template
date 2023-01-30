@@ -15,9 +15,9 @@ func NewUserCommandHandler(repository *UserRepository) *UserCommandHandler {
 
 func (u UserCommandHandler) CreateUser(ctx context.Context, command CreateUserCommand) error {
 
-	user := userDomain.NewUser(command.Name)
+	user := userDomain.NewUser(command.Name, command.Balance)
 
-	if err := u.repository.InsertUser(ctx, user); err != nil {
+	if err := u.repository.CreateUser(ctx, user); err != nil {
 		return err
 	}
 

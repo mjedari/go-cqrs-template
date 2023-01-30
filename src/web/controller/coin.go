@@ -42,13 +42,29 @@ func (c CoinController) GetCoin(writer http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	response, err := json.Marshal(coin)
+	c.returnResponse(writer, coin)
+}
+
+func (c CoinController) GetCoinAll(writer http.ResponseWriter, request *http.Request) {
+
+	query := coin.GetAllCoinsQuery{}
+	users, err := c.queryHandler.GetCoins(context.Background(), query)
 	if err != nil {
 		http.Error(writer, err.Error(), 500)
-		return
 	}
-	_, err = writer.Write(response)
+
+	c.returnResponse(writer, users)
+}
+
+func (c CoinController) returnResponse(writer http.ResponseWriter, response interface{}) {
+
+	responseByte, err := json.Marshal(response)
 	if err != nil {
-		http.Error(writer, "internal error", 500)
+		http.Error(writer, err.Error(), 500)
+	}
+
+	_, err = writer.Write(responseByte)
+	if err != nil {
+		http.Error(writer, err.Error(), 500)
 	}
 }

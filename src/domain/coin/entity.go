@@ -16,3 +16,7 @@ func NewCoin(name string, price float64, min float64) *Coin {
 func (c Coin) GetKey() string {
 	return fmt.Sprintf("%v:%v", "coin", c.Id)
 }
+
+func (c Coin) GetMinPrice() float64 {
+	return c.Min * c.Price
+}

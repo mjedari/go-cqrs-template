@@ -6,7 +6,19 @@ type TestEvent struct {
 }
 
 type OrderEvent struct {
-	CoinId  uint
-	OrderId uint
-	UserId  uint
+	CoinId   uint
+	OrderId  uint
+	UserId   uint
+	Quantity uint
+}
+
+type InstantOrderEvent struct {
+	CoinId   uint
+	OrderId  uint
+	UserId   uint
+	Quantity uint
+}
+
+type FailTransactionEvent struct {
+	Orders []Order
 }

@@ -19,7 +19,7 @@ func NewUserRepository(redisStorage storage.IStorage) *UserRepository {
 	return &UserRepository{redisStorage: redisStorage}
 }
 
-func (r UserRepository) InsertUser(ctx context.Context, user *user.User) error {
+func (r UserRepository) CreateUser(ctx context.Context, user *user.User) error {
 	key, err := r.getKey(ctx, user)
 	if err != nil {
 		return err
@@ -31,6 +31,54 @@ func (r UserRepository) InsertUser(ctx context.Context, user *user.User) error {
 	}
 
 	if err = r.redisStorage.Insert(ctx, key, userByte); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r UserRepository) GetUser(ctx context.Context, user *user.User) error {
+	key := user.GetKey()
+
+	userByte, err := r.redisStorage.Select(ctx, key)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(userByte, user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r UserRepository) GetAllUsers(ctx context.Context) ([]user.User, error) {
+
+	allUsersBytes, err := r.redisStorage.SelectAll(ctx, "user:*")
+	if err != nil {
+		return nil, err
+	}
+
+	var allUsers []user.User
+	for _, ordersByte := range allUsersBytes {
+		var user user.User
+		if errM := json.Unmarshal(ordersByte, &user); errM != nil {
+			return nil, errM
+		}
+		allUsers = append(allUsers, user)
+	}
+
+	return allUsers, nil
+}
+
+func (r UserRepository) UpdateUser(ctx context.Context, user *user.User) error {
+	key := user.GetKey()
+
+	userByte, err := json.Marshal(user)
+	if err != nil {
+		return err
+	}
+	if err = r.redisStorage.Update(ctx, key, userByte); err != nil {
 		return err
 	}
 
@@ -53,20 +101,5 @@ func (r UserRepository) addId(ctx context.Context, user *user.User) error {
 	}
 
 	user.Id = uint(userId)
-	return nil
-}
-
-func (r UserRepository) GetUser(ctx context.Context, user *user.User) error {
-	key := user.GetKey()
-
-	userByte, err := r.redisStorage.Select(ctx, key)
-	if err != nil {
-		return err
-	}
-
-	err = json.Unmarshal(userByte, user)
-	if err != nil {
-		return err
-	}
 	return nil
 }

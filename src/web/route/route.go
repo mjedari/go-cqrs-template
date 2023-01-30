@@ -17,12 +17,15 @@ func NewRouter() *mux.Router {
 	// user routes
 	router.HandleFunc("/user/create", userController.CreateUser).Methods(http.MethodPost)
 	router.HandleFunc("/user/{id:[0-9]+}", userController.GetUser).Methods(http.MethodGet)
+	router.HandleFunc("/user/all", userController.GetUserAll).Methods(http.MethodGet)
 	// order routes
-	router.HandleFunc("/order/coin/{order_id:[0-9]+}/user/{user_id:[0-9]+}", orderController.OrderCoin).Methods(http.MethodPost)
-	router.Use(middleware.LoggingMiddleware)
+	router.HandleFunc("/order/create", orderController.OrderCoin).Methods(http.MethodPost)
+	router.HandleFunc("/order/all", orderController.GetAllOrders).Methods(http.MethodGet)
 	// coin routes
 	router.HandleFunc("/coin/{id:[0-9]+}", coinController.GetCoin).Methods(http.MethodGet)
 	router.HandleFunc("/coin/create", coinController.CreateCoin).Methods(http.MethodPost)
+	router.HandleFunc("/coin/all", coinController.GetCoinAll).Methods(http.MethodGet)
+	router.Use(middleware.LoggingMiddleware)
 
 	return router
 }

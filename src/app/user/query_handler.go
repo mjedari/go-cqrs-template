@@ -24,3 +24,13 @@ func (u UserQueryHandler) GetUser(ctx context.Context, command GetUserQuery) (*u
 
 	return &user, nil
 }
+
+func (u UserQueryHandler) GetUsers(ctx context.Context, query GetAllUsersQuery) ([]userDomain.User, error) {
+
+	users, err := u.repository.GetAllUsers(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}

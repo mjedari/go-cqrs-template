@@ -1,5 +1,9 @@
 package order
 
-type GetCoinQuery struct {
+type GetOrderQuery struct {
 	Id uint
+}
+
+type GetAllOrdersQuery struct {
+	//
 }
