@@ -12,6 +12,10 @@ database.
 But maybe it is not perfect choice in this context. As a matter of Clean Code & Architecture, OOP, SOLID principles
 there are many situations in code that can be revised but for the sake of time limitation deferred to the future.
 
+## TODO
+- Add transaction support
+- 
+
 
 ## Usage
 
