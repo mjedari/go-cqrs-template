@@ -2,11 +2,16 @@ package coin
 
 import (
 	"context"
+	"fmt"
 	coinDomain "github.com/mjedari/go-cqrs-template/domain/coin"
 )
 
 type CoinCommandHandler struct {
 	repository *CoinRepository
+}
+
+func (h CoinCommandHandler) Handle() {
+	fmt.Println("CoinCommandHandler")
 }
 
 func NewCoinCommandHandler(repository *CoinRepository) *CoinCommandHandler {

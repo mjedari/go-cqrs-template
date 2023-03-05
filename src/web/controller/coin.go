@@ -10,11 +10,11 @@ import (
 )
 
 type CoinController struct {
-	commandHandler *coin.CoinCommandHandler
+	commandHandler coin.ICoinCommandHandler
 	queryHandler   *coin.CoinQueryHandler
 }
 
-func NewCoinController(commandHandler *coin.CoinCommandHandler, queryHandler *coin.CoinQueryHandler) *CoinController {
+func NewCoinController(commandHandler coin.ICoinCommandHandler, queryHandler *coin.CoinQueryHandler) *CoinController {
 	return &CoinController{commandHandler: commandHandler, queryHandler: queryHandler}
 }
 
@@ -25,9 +25,11 @@ func (c CoinController) CreateCoin(writer http.ResponseWriter, request *http.Req
 		return
 	}
 
-	if err := c.commandHandler.CreateCoin(context.Background(), command); err != nil {
-		http.Error(writer, err.Error(), 500)
-	}
+	//if err := c.commandHandler.CreateCoin(context.Background(), command); err != nil {
+	//	http.Error(writer, err.Error(), 500)
+	//}
+
+	c.commandHandler.Handle()
 
 }
 
