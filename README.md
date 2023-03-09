@@ -2,7 +2,7 @@
 
 ## Description
 
-the whole structure is based on clean architecture. packaging is by tech. Although you preferable one is packaging by
+The whole structure is based on clean architecture. packaging is by tech. Although you preferable one is packaging by
 feature.
 the reason for choosing the packaging is its is more understandable for none-golang community which I guess you prefer.
 I do not use any web framework but rather used some libraries to be more comfortable. I implement event-bus and used it
@@ -18,10 +18,18 @@ there are many situations in code that can be revised but for the sake of time l
 
 
 ## Usage
-
-you can run by docker compose:
+### Docker
+to run project by docker:
 ```
 docker compose up
+```
+
+=======
+### Make
+You can run the application by make file but before make sure that your `redis-server` is running
+and you have installed `go` on your machine:
+```
+make start
 ```
 
 ## Api Guide
