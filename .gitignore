@@ -1,2 +1,2 @@
 .idea
-./src/cqrs
+src/cqrs
