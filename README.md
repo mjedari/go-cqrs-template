@@ -12,19 +12,14 @@ database.
 But maybe it is not perfect choice in this context. As a matter of Clean Code & Architecture, OOP, SOLID principles
 there are many situations in code that can be revised but for the sake of time limitation deferred to the future.
 
-## TODO
-- Add transaction support
-- 
-
 
 ## Usage
 ### Docker
-to run project by docker:
+To run project by docker:
 ```
 docker compose up
 ```
 
-=======
 ### Make
 You can run the application by make file but before make sure that your `redis-server` is running
 and you have installed `go` on your machine:

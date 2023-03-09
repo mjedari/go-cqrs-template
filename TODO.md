@@ -10,4 +10,5 @@ old one is expired when we lost connection
 
 1. How can I add a session factory to our database decorator to handle retry session?
 2. How can ad a general Database Retry Decorator for our database?
-3. 
+3. Add transaction support
+4. 
