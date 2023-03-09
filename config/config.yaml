@@ -1,17 +1,18 @@
-SERVER:
-  HOST: localhost
-  PORT: 8000
+Server:
+  Host: localhost
+  Port: 8080
 
-DATABASE:
-  HOST: "local"
-  PORT: "local"
-  USER: "local"
-  PASS: "local"
+Database:
+  Host:
+  Port:
+  User:
+  Pass:
 
-HTTP_CLIENT:
-  TIMEOUT: 30
+HttpClient:
+  Timeout: 30
 
-REDIS:
-  HOST: localhost
-  PORT: 6379
-  PASS:
+Redis:
+  Host: localhost
+  Port: 6379
+  User:
+  Pass:

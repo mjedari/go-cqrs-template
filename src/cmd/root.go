@@ -29,7 +29,7 @@ func init() {
 func initConfig() {
 	viper.SetConfigName(configFile)
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("../config")
+	viper.AddConfigPath("./config")
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Fatal error config file: %s \n", err)
 	}

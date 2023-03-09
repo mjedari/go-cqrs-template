@@ -48,6 +48,7 @@ func (h OrderEventHandler) handleBuyEvent(ctx context.Context, orderEvent order.
 
 func (h OrderEventHandler) handleInstantBuyEvent(ctx context.Context, orderEvent order.InstantOrderEvent) {
 	fmt.Println("handle order event", orderEvent)
+	// TODO: could handle concurrent
 	coin := coinDomain.Coin{Id: orderEvent.CoinId}
 	if err := h.coinRepository.GetCoin(ctx, &coin); err != nil {
 		//todo: handle event error

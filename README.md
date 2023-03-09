@@ -12,13 +12,21 @@ database.
 But maybe it is not perfect choice in this context. As a matter of Clean Code & Architecture, OOP, SOLID principles
 there are many situations in code that can be revised but for the sake of time limitation deferred to the future.
 
+## TODO
+- Add transaction support
+- 
+
 
 ## Usage
-### Docker compose
-to run project by docker please go `docker-compatible-version` branch. from [here](https://github.com/mjedari/go-cqrs-template/tree/docker-compatible-version)
+### Docker
+to run project by docker:
+```
+docker compose up
+```
 
+=======
 ### Make
-You can run the application by make file in `src` directory but before make sure that your `redis-server` is running
+You can run the application by make file but before make sure that your `redis-server` is running
 and you have installed `go` on your machine:
 ```
 make start
