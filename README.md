@@ -158,3 +158,9 @@ entities in src/domain/wallet, HTTP handlers in src/web/controller/wallet.go,
 and wire it in src/web/wiring and src/web/route/route.go.
 Do not introduce new frameworks.
 ```
+
+## License
+MIT. See `LICENSE`.
+
+## Contributing
+Contributors are welcome. Open an issue with your idea or submit a PR with a clear description of the change.
